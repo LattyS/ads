@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <title>Retail Classic - Pave</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+	.logocontainer {
+		background: linear-gradient(to bottom, #c3c3c3, rgba(0,0,0,0)); 
+	}
+	.brandinfos {
+		border-left: 1vh solid #f06c53;
+	}
+	.adress, .open {
+		opacity: 0;
+	}	
+	.spinnerrotate {
+		background: linear-gradient(90deg, white 50%, transparent 50%),linear-gradient(to top, #f06c53 50%, white 90%, white 90%);
+	}
+	.spinnerforeground {
+		background: white;
+	}
+	.arrow {
+		border-left: 12vh solid #f06c53;
+	}
+	.arrowWhite {
+		border-left: 2.5vh solid white;
+	}
+	.mapcontainer {
+		background-image: url("assets/img/map.png");
+	}
+	
+	.sound{
+		position:absolute;
+		top:2%;
+		right:2%;
+		z-index : 10;
+	}
+	
+	.video{
+		width:100%;
+		height:100%;
+	}
+	
+	#main{
+		display:none;
+	}
+  </style>
+</head>
+<body>
+	<span id="te-clearads-js-tenthavenue01cont02"></span>
+	<div id="main" class="pave">
+		<div class="logocontainer">
+				<img class="logo" src="assets/img/logo.png" alt="logo">
+		</div>
+		
+		<div class="videocontainer"></div>
+		
+		
+		<div class="mapcontainer">
+			<div class="spinnercontainer">
+				<div class="spinnerforeground">
+					<div class="arrowcontainer">
+						<div class="arrow"></div>
+						<div class="arrowWhite"></div>
+					</div>
+				</div>
+				<div class="spinnerrotate"></div>
+				<div class="spinnerbackground"></div>
+			</div>
+			<div class="mapbox">
+				<div class="brandinfos">
+					<div class="infos">
+						<h1 id="brand" class="brand fadeout">à 200 m<br>Renault Rousseau</h1>
+						<p id="adress" class="adress fadein1">28 rue Jacques Ibert<br>75017 Paris</p>
+						<p id="open" class="open fadein2">Ouvert du Lun au Ven de 9h00 à 18h00</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+	<script type="text/javascript">
+		var notLoad = true;
+		var iOS = /iPad|iPhone|iPod/.test(navigator.platform);
+		var showAd = function(){
+			notLoad = false;
+			
+			var videoContainer = document.getElementsByClassName("videocontainer")[0];
+			
+			var timeOffLogoMap = 20; //Pour faire disparaitre le map container et le logo.
+			var timeshowLogoTop = 2; //Pour faire apparaitre le logo.
+			var closeMapLogo = false;
+			var showLogoTop = false;
+			
+			var started = false;
+			var videoDuration = 0;
+			var quartilesLauchPeriod25 = 0;
+			var quartilesLauchPeriod50 = 0;
+			var quartilesLauchPeriod75 = 0;
+			
+			var reached50 = false;
+			var reached25 = false;
+			var reached75 = false;
+			
+			var initQuartile = false;
+			
+			var initQuartiles = function(){
+				quartilesLauchPeriod25 = videoDuration*0.25;
+				quartilesLauchPeriod50 = videoDuration*0.50;
+				quartilesLauchPeriod75 = videoDuration*0.75;
+				initQuartile = true;
+				
+			};
+			
+			/** Creation Video **/
+			var video = document.createElement("video");
+			video.id = "video";
+			video.controls = false;
+			video.autoplay = false;
+			video.muted = false;
+			video.volume = 0;
+			video.setAttribute("webkit-playsinline","webkit-playsinline");
+			video.setAttribute("class","video");
+			
+			var sourceMP4 = document.createElement("source"); 
+			sourceMP4.type = "video/mp4";
+			sourceMP4.src = "assets/video/video.mp4";
+			video.appendChild(sourceMP4);
+			
+			/** Fin Creation Video **/
+			
+			/** Gestion Volume **/
+			var sound_on = document.createElement("img");
+			sound_on.src = "assets/video/sound_on.png";
+			sound_on.style.display = "none";
+			sound_on.setAttribute("class","sound");
+			
+			var sound_off = document.createElement("img");
+			sound_off.src = "assets/video/sound_off.png";
+			sound_off.style.display = "none";
+			sound_off.setAttribute("class","sound");
+			
+			/** FIN Gestion Volume **/
+			
+			
+			
+			videoContainer.appendChild(video);
+			
+			if (iOS) {
+				/**Creation canvas**/
+				var canvas = document.createElement("canvas");
+				canvas.setAttribute("class","canvas");
+				canvas.style.height = "100%";
+				canvas.style.width = "100%";
+				videoContainer.appendChild(canvas);
+				
+				var divClickCanva = document.createElement("div");
+				divClickCanva.style.position = "absolute";
+				divClickCanva.style.top = "20%";
+				divClickCanva.style.left = "0";
+				divClickCanva.style.bottom = "0";
+				divClickCanva.style.right = "0";
+				
+				videoContainer.appendChild(divClickCanva);
+				
+				var canvasVideo = new CanvasVideoPlayer({
+					videoSelector: '.video',
+					canvasSelector: '.canvas',
+					framesPerSecond: 24,
+					audio: true,
+					autoplay: false,
+					loop: false,
+					resetOnLastFrame: false
+				});
+				
+				/** Gestion Volume **/
+				
+				canvasVideo.audio.pause();
+				
+				sound_on.onclick = function(){
+					canvasVideo.audio.pause();
+					sound_off.style.display = "block";
+					sound_on.style.display = "none";
+				};
+				sound_off.onclick = function(){
+					canvasVideo.audio.play();
+					sound_off.style.display = "none";
+					sound_on.style.display = "block";
+				};
+				
+				canvasVideo.video.addEventListener('canplay',function(){
+					//canvasVideo.play();
+					var intervalTestVideoCanvas = setInterval(function(){
+						videoDuration = canvasVideo.video.duration;
+						if(videoDuration>0){
+							sound_off.style.display = "block";
+							if(!initQuartile){
+								initQuartiles();
+							}
+							canvasVideo.play();
+							clearInterval(intervalTestVideoCanvas);
+						}
+					},100);
+				});
+				
+				canvasVideo.video.ontimeupdate = function(){
+					if((canvasVideo.video.currentTime >= timeshowLogoTop) && !showLogoTop){
+						document.getElementsByClassName('logo')[0].className = "logo slideDown";
+						showLogoTop = true
+					}
+					
+					if((canvasVideo.video.currentTime >= quartilesLauchPeriod25) && !reached25)
+					{
+						reached25 = true;
+					}
+					
+					if((canvasVideo.video.currentTime >= quartilesLauchPeriod50) && !reached50)
+					{
+						reached50 = true;
+					}
+					
+					if((canvasVideo.video.currentTime >= quartilesLauchPeriod75) && !reached75)
+					{
+						reached75 = true;
+					}
+					
+					if((canvasVideo.video.currentTime >= timeOffLogoMap) && ! closeMapLogo){
+						document.getElementsByClassName('mapcontainer')[0].className += " slideUpReverse";
+						document.getElementsByClassName('logo')[0].className = "logo slideDownReverse";
+						console.log(document.getElementsByClassName('mapcontainer')[0].className);
+						console.log(document.getElementsByClassName('logo')[0].className);
+						closeMapLogo = true;
+					}
+					
+					if(canvasVideo.video.currentTime >= videoDuration){
+						endVideoQuartile();
+						sound_off.style.display = "none";
+						sound_on.style.display = "none";
+					}
+				};
+			}else{ /** ANDROID **/
+				sound_on.onclick = function(){
+					video.volume = 0;
+				};
+				sound_off.onclick = function(){
+					video.volume = 1;
+				};
+				
+				video.onvolumechange = function(){
+					if(video.volume == 0){
+						sound_on.style.display = "none";
+						sound_off.style.display = "block";
+					}else{
+						sound_on.style.display = "block";
+						sound_off.style.display = "none";
+					}
+				};
+				
+				/** init duration for quartiles and play video **/
+			
+				video.addEventListener('playing', function() {
+					video.removeAttribute('controls');
+					
+					if(!initQuartile){
+						initQuartiles();
+					}
+					
+					started = true;
+				});
+				
+				var intervalTestVideo = setInterval(function(){
+					videoDuration = video.duration;
+					if(videoDuration>0){
+						video.play();
+						clearInterval(intervalTestVideo);
+					}
+				},100);
+				
+				/** Tracking Quartiles **/
+				
+				video.ontimeupdate = function(){
+				
+					if((video.currentTime >= timeshowLogoTop) && !showLogoTop){
+						document.getElementsByClassName('logo')[0].className = "logo slideDown";
+						showLogoTop = true
+					}
+					
+					if((video.currentTime >= quartilesLauchPeriod25) && !reached25)
+					{
+						reached25 = true;
+					}
+					
+					if((video.currentTime >= quartilesLauchPeriod50) && !reached50)
+					{
+						reached50 = true;
+					}
+					
+					if((video.currentTime >= quartilesLauchPeriod75) && !reached75)
+					{
+
+						reached75 = true;
+					}
+					
+					if((video.currentTime >= timeOffLogoMap) && ! closeMapLogo){
+						document.getElementsByClassName('mapcontainer')[0].className += " slideUpReverse";
+						document.getElementsByClassName('logo')[0].className = "logo slideDownReverse";
+						closeMapLogo = true;
+					}
+				};
+			}
+			
+			videoContainer.appendChild(sound_on);
+			videoContainer.appendChild(sound_off);
+
+			document.getElementById("main").style.display = "block";
+			
+			function clickAndSoundOff(){
+				if (iOS) {
+					canvasVideo.audio.pause();
+					sound_off.style.display = "block";
+					sound_on.style.display = "none";
+				}else{
+					video.volume = 0;
+				}
+			}
+			
+			if (iOS) {
+				divClickCanva.addEventListener('click',clickAndSoundOff);
+			}
+			else{
+				video.addEventListener('click',clickAndSoundOff);
+				document.getElementsByClassName('mapcontainer')[0].addEventListener('click',clickAndSoundOff);
+			}
+		};
+
+		setTimeout(function(){ 
+			if(notLoad){
+				showAd();
+			}
+		}, 3000);
+	</script>
+</body>
+	
+</html>

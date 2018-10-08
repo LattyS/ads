@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <title>Retail Classic - Pave</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+	.headercontainer {
+		background: white;
+	}
+	.oblique {
+		background: white;
+		<!-- -webkit-filter: drop-shadow(1px 0px 1px rgba(0, 0, 0, 0.3));
+		filter: drop-shadow(1px 0px 1px rgba(0, 0, 0, 0.3)); -->
+	}
+	.bigframe {
+		background-image: url("img/claim0.gif");
+	}
+	.brandinfos {
+		border-left: 3px solid #f06c53;
+	}
+	.adress {
+		opacity: 0;
+	}	
+	.open {
+		opacity: 0;
+	}
+	.spinnerrotate {
+		background: linear-gradient(90deg, white 50%, transparent 50%),linear-gradient(to top, #f06c53 50%, white 90%, white 90%);
+	}
+	.spinnerforeground {
+		background: white;
+	}
+	.arrow {
+		border-left: 17vh solid #f06c53;
+	}
+	.arrowWhite {
+		border-left:3vh solid white;
+	}
+  </style>
+</head>
+<body>
+	<span id="te-clearads-js-tenthavenue01cont02"></span>
+	<div id="main" class="pave">
+		<div class="top topTransition">
+			<div class="littleframecontainer slideLeft2">
+				<div class="littleframe frame2">
+					<img src="img/claim2.gif" alt="frame2">
+				</div>
+				<div class="littleframe frame1 frametransition">
+					<img src="img/claim1.gif" alt="frame1">
+				</div>
+			</div>
+			<div class="oblique slideLeft"></div>
+			<div class="logocontainer">
+					<img class="logo logoOpacity2" src="img/logo.gif" alt="logo">
+			</div>
+			
+			<div class="headercontainer logoOpacity">
+				<img class="header" src="img/header.gif" alt="header">
+			</div>
+		</div>
+		<div class="bottom">
+			<div class="mapcontainer slideUp">
+				<div class="mapbox zoomin">
+					<div class="brandinfos">
+						<div class="infos">
+							<h1 id="brand" class="brand fadeout">à 200 m<br>Renault Rousseau</h1>
+							<p id="adress" class="adress fadein1">28 rue Jacques Ibert<br>75017 Paris</p>
+							<p id="open" class="open fadein2">Ouvert du Lun au Ven de 9h00 à 18h00</p>
+						</div>
+					</div>
+					<div class="spinnercontainer">
+						<div class="spinnerforeground">
+							<div class="arrowcontainer">
+								<div class="arrow"></div>
+								<div class="arrowWhite"></div>
+							</div>
+						</div>
+						<div class="spinnerrotate"></div>
+						<div class="spinnerbackground"></div>
+					</div>
+				</div>
+				<img class="pin" src="img/pin.png" alt="pin">
+			</div>
+			<div class="bigframecontainer slideOutUp">
+				<div class="bigframe"></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.onload = function(){
+	
+		//Boucler animation
+		var oblique = document.getElementsByClassName('oblique')[0];
+		var littleframeContainer = document.getElementsByClassName('littleframecontainer')[0];
+		var logo = document.getElementsByClassName('logo')[0];
+		var frame1 = document.getElementsByClassName('frame1')[0];
+		var headerContainer = document.getElementsByClassName('headercontainer')[0];
+		var top1 = document.getElementsByClassName('top')[0];
+		var bigframeContainer = document.getElementsByClassName('bigframecontainer')[0];
+		var mapContainer = document.getElementsByClassName('mapcontainer')[0];
+		var mapBox = document.getElementsByClassName('mapbox')[0];
+		var brand = document.getElementsByClassName('brand')[0];
+		var adress = document.getElementsByClassName('adress')[0];
+		var open = document.getElementsByClassName('open')[0];
+
+		setInterval(function(){
+			if (oblique.classList.contains('slideLeft')) {
+				oblique.classList.remove('slideLeft')
+				oblique.classList.add('slideLeftReverse');
+			}
+			if (littleframeContainer.classList.contains('slideLeft2')) {
+				littleframeContainer.classList.remove('slideLeft2')
+				littleframeContainer.classList.add('slideLeft2Reverse');
+			}
+			if (logo.classList.contains('logoOpacity2')) {
+				logo.classList.remove('logoOpacity2')
+				logo.classList.add('logoOpacity2Reverse');
+			}
+			if (mapBox.classList.contains('zoomin')) {
+				mapBox.classList.remove('zoomin')
+				mapBox.classList.add('zoominReverse');
+			}
+			if (frame1.classList.contains('frametransition')) {
+				frame1.classList.remove('frametransition')
+				frame1.classList.add('frametransitionReverse');
+			}
+			
+			setTimeout(function(){
+				if (brand.classList.contains('fadeout')) {
+					brand.classList.remove('fadeout');
+				}	
+				if (adress.classList.contains('fadein1')) {
+					adress.classList.remove('fadein1');
+				}	
+				if (open.classList.contains('fadein2')) {
+					open.classList.remove('fadein2');
+				}
+				if (headerContainer.classList.contains('logoOpacity')) {
+					headerContainer.classList.remove('logoOpacity')
+					headerContainer.classList.add('logoOpacityReverse');
+				}
+				if (bigframeContainer.classList.contains('slideOutUp')) {
+					bigframeContainer.classList.remove('slideOutUp')
+					bigframeContainer.classList.add('slideOutUpReverse');
+				}
+				if (top1.classList.contains('topTransition')) {
+					top1.classList.remove('topTransition')
+					top1.classList.add('topTransitionReverse');
+				}
+				if (mapContainer.classList.contains('slideUp')) {
+					mapContainer.classList.remove('slideUp')
+					mapContainer.classList.add('slideUpReverse');
+				}
+			}, 1000);
+			// Fin reverse
+			
+			setTimeout(function(){
+				if (oblique.classList.contains('slideLeftReverse')) {
+					oblique.classList.remove('slideLeftReverse')
+					oblique.classList.add('slideLeft');
+				}
+				if (littleframeContainer.classList.contains('slideLeft2Reverse')) {
+					littleframeContainer.classList.remove('slideLeft2Reverse')
+					littleframeContainer.classList.add('slideLeft2');
+				}
+				if (logo.classList.contains('logoOpacity2Reverse')) {
+					logo.classList.remove('logoOpacity2Reverse')
+					logo.classList.add('logoOpacity2');
+				}
+				if (mapBox.classList.contains('zoominReverse')) {
+					mapBox.classList.remove('zoominReverse')
+					mapBox.classList.add('zoomin');
+				}
+				if (frame1.classList.contains('frametransitionReverse')) {
+					frame1.classList.remove('frametransitionReverse')
+					frame1.classList.add('frametransition');
+				}
+				if (headerContainer.classList.contains('logoOpacityReverse')) {
+					headerContainer.classList.remove('logoOpacityReverse')
+					headerContainer.classList.add('logoOpacity');
+				}
+				if (bigframeContainer.classList.contains('slideOutUpReverse')) {
+					bigframeContainer.classList.remove('slideOutUpReverse')
+					bigframeContainer.classList.add('slideOutUp');
+				}
+				if (top1.classList.contains('topTransitionReverse')) {
+					top1.classList.remove('topTransitionReverse')
+					top1.classList.add('topTransition');
+				}
+				if (mapContainer.classList.contains('slideUpReverse')) {
+					mapContainer.classList.remove('slideUpReverse')
+					mapContainer.classList.add('slideUp');
+				}	
+				
+				brand.classList.add('fadeout');
+				adress.classList.add('fadein1');
+				open.classList.add('fadein2');
+				
+			}, 3000);
+		},16000);
+	};
+</script>
+</html>

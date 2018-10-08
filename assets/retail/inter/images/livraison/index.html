@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <title>Retail Classic - Interstitial</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+	.frame1 {
+		background-image: url("img/claim_type1.gif");
+	}
+	.frame2 {
+		background-image: url("img/claim_type2.gif");
+	}
+	.logocontainer {
+		opacity: 0;
+	}
+	.brandinfos {
+		border-left: 3px solid #f06c53;
+	}
+	.adress {
+		animation: fadeout 4s 2s infinite;
+	}	
+	.open {
+		opacity: 0;
+		animation: fadein 4s 2s infinite;
+	}
+	.pulsar .ring {
+		border: 6px solid #00bff3;
+	}
+	.spinnerrotate {
+		background: linear-gradient(90deg, white 50%, transparent 50%),linear-gradient(to top, #f06c53 50%, white 90%, white 90%);
+	}
+	.spinnerforeground {
+		background: white;
+	}
+	.arrow {
+		border-left: 5vh solid #f06c53;
+	}
+	.arrowWhite {
+		border-left:1vh solid white;
+	}
+	.mapcontainer {
+		background-image: url("img/geolocJour.jpg");
+	}
+	.bottom{
+		display:block;
+	}
+	.bottom p {
+		animation: scroll-left 20s linear infinite;
+	}
+
+  </style>
+</head>
+<body>
+	<span id="te-clearads-js-tenthavenue01cont02"></span>
+	<div id="main">
+		<div class="bigframe">
+			<div class="logocontainer">
+				<img class="logo" src="img/header.gif" alt="logo">
+			</div>
+			<div class="framecontainer">
+				<div class="littleframe frame2"></div>
+				<div class="littleframe frame1"></div>
+			</div>
+		</div>
+		<div class="mapcontainer">
+			<div class="mapbox">
+				<div class="pulsar">
+					<div class="ring"></div>
+					<div class="ring"></div>
+					<div class="ring"></div>
+				</div>
+				<div class="mapboxcontent">
+					<div class="brandinfos">
+						<h1 id="distance_name">à 200m<br>Renault Rousseaux</h1>
+						<div class="infos">
+							<p id="adress" class="adress">28 rue Jacques Ibert<br>75017 Paris</p>
+							<p id="open" class="open">Ouvert du Lun au Ven de 9h00 à 18h00</p>
+						</div>
+					</div>
+					<div class="spinnercontainer">
+						<div class="spinnerforeground">
+							<div class="arrowcontainer">
+								<div class="arrow"></div>
+								<div class="arrowWhite"></div>
+							</div>
+						</div>
+						<div class="spinnerrotate"></div>
+						<div class="spinnerbackground"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<p>*Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+		</div>
+	</div>
+</body>
+</html>

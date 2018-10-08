@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <title>Retail Classic - Interstitial</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+	.logocontainer {
+		opacity: 1;
+	}
+	.brandinfos {
+		border-left: 3px solid #f06c53;
+	}
+	.adress {
+		animation: fadeout 4s 2s infinite;
+	}	
+	.open {
+		opacity: 0;
+		animation: fadein 4s 2s infinite;
+	}
+	.pulsar .ring {
+		border: 6px solid #00bff3;
+	}
+	.spinnerrotate {
+		background: linear-gradient(90deg, white 50%, transparent 50%),linear-gradient(to top, #f06c53 50%, white 90%, white 90%);
+	}
+	.spinnerforeground {
+		background: white;
+	}
+	.arrow {
+		border-left: 5vh solid #f06c53;
+	}
+	.arrowWhite {
+		border-left:1vh solid white;
+	}
+	
+	.mapcontainer {
+		background-image: url("assets/img/geolocJour.jpg");
+	}
+	
+	.sound{
+		position:absolute;
+		bottom:2%;
+		right:2%;
+		z-index : 10;
+	}
+	
+  </style>
+
+
+
+</head>
+<body>
+	<span id="te-clearads-js-tenthavenue01cont02"></span>
+	<div id="main">
+		<div class="bigframe">
+			<div class="logocontainer">
+				<img class="logo" src="assets/img/header.gif" alt="logo">
+			</div>
+			<div class="framecontainer">
+			</div>
+		</div>
+		<div class="mapcontainer">
+			<div class="mapbox">
+				<div class="pulsar">
+					<div class="ring"></div>
+					<div class="ring"></div>
+					<div class="ring"></div>
+				</div>
+				<div class="mapboxcontent">
+                    <div class="brandinfos">
+                        <h1 id="distance_name">à 200m<br>Renault Rousseaux</h1>
+                        <div class="infos">
+                            <p id="adress" class="adress">28 rue Jacques Ibert<br>75017 Paris</p>
+                            <p id="open" class="open">Ouvert du Lun au Ven de 9h00 à 18h00</p>
+                        </div>
+                    </div>
+					<div class="spinnercontainer">
+						<div class="spinnerforeground">
+							<div class="arrowcontainer">
+								<div class="arrow"></div>
+								<div class="arrowWhite"></div>
+							</div>
+						</div>
+						<div class="spinnerrotate"></div>
+						<div class="spinnerbackground"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom">
+			<p>*Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var notLoad = true;
+		var iOS = /iPad|iPhone|iPod/.test(navigator.platform);
+		var showAd = function(){
+			var videoContainer = document.getElementsByClassName("framecontainer")[0];
+			
+			
+			var started = false;
+			var videoDuration = 0;
+			var quartilesLauchPeriod25 = 0;
+			var quartilesLauchPeriod50 = 0;
+			var quartilesLauchPeriod75 = 0;
+			
+			var reached50 = false;
+			var reached25 = false;
+			var reached75 = false;
+			
+			var initQuartile = false;
+			
+			var initQuartiles = function(){
+				quartilesLauchPeriod25 = videoDuration*0.25;
+				quartilesLauchPeriod50 = videoDuration*0.50;
+				quartilesLauchPeriod75 = videoDuration*0.75;
+				initQuartile = true;
+
+			};
+			
+			
+			/** Creation Video **/
+			var video = document.createElement("video");
+			video.id = "video";
+			video.controls = false;
+			video.autoplay = false;
+			video.muted = false;
+			video.volume = 0;
+			video.setAttribute("webkit-playsinline","webkit-playsinline");
+			video.setAttribute("class","video");
+			
+			var sourceMP4 = document.createElement("source"); 
+			sourceMP4.type = "video/mp4";
+			sourceMP4.src = "assets/video/video.mp4";
+			video.appendChild(sourceMP4);
+			
+			/** Fin Creation Video **/
+			
+			/** Gestion Volume **/
+			var sound_on = document.createElement("img");
+			sound_on.src = "assets/video/sound_on.png";
+			sound_on.style.display = "none";
+			sound_on.setAttribute("class","sound");
+			
+			var sound_off = document.createElement("img");
+			sound_off.src = "assets/video/sound_off.png";
+			sound_off.style.display = "none";
+			sound_off.setAttribute("class","sound");
+			
+			/** FIN Gestion Volume **/
+			
+			videoContainer.appendChild(video);
+			
+			
+			if (iOS) {
+				
+				/**Creation canvas**/
+				var canvas = document.createElement("canvas");
+				canvas.setAttribute("class","canvas");
+				canvas.style.height = "100%";
+				canvas.style.width = "100%";
+				videoContainer.appendChild(canvas);
+				
+				var divClickCanva = document.createElement("div");
+				divClickCanva.style.position = "absolute";
+				divClickCanva.style.top = "0";
+				divClickCanva.style.left = "0";
+				divClickCanva.style.bottom = "0";
+				divClickCanva.style.right = "12%";
+				
+				videoContainer.appendChild(divClickCanva);
+				
+				var canvasVideo = new CanvasVideoPlayer({
+					videoSelector: '.video',
+					canvasSelector: '.canvas',
+					framesPerSecond: 24,
+					audio: true,
+					autoplay: false,
+					loop: false,
+					resetOnLastFrame: false
+				});
+				
+				/** Gestion Volume **/
+				
+				canvasVideo.audio.pause();
+				
+				sound_on.onclick = function(){
+					canvasVideo.audio.pause();
+					sound_off.style.display = "block";
+					sound_on.style.display = "none";
+				};
+				sound_off.onclick = function(){
+					canvasVideo.audio.play();
+					sound_off.style.display = "none";
+					sound_on.style.display = "block";
+				};
+				
+				canvasVideo.video.addEventListener('canplay',function(){
+					//canvasVideo.play();
+					var intervalTestVideoCanvas = setInterval(function(){
+						videoDuration = canvasVideo.video.duration;
+						if(videoDuration>0){
+							sound_off.style.display = "block";
+							if(!initQuartile){
+								initQuartiles();
+							}
+							startVideoQuartile();
+							canvasVideo.play();
+							clearInterval(intervalTestVideoCanvas);
+						}
+					},100);
+				});
+				
+				canvasVideo.video.ontimeupdate = function(){
+					
+					if((canvasVideo.video.currentTime >= quartilesLauchPeriod25) && !reached25)
+					{
+						reached25 = true;
+						firstVideoQuartile();
+					}
+					
+					if((canvasVideo.video.currentTime >= quartilesLauchPeriod50) && !reached50)
+					{
+						reached50 = true;
+						secondVideoQuartile();
+					}
+					
+					if((canvasVideo.video.currentTime >= quartilesLauchPeriod75) && !reached75)
+					{
+						reached75 = true;
+						thirdVideoQuartile();
+					}
+					
+					if(canvasVideo.video.currentTime >= videoDuration){
+						endVideoQuartile();
+						sound_off.style.display = "none";
+						sound_on.style.display = "none";
+					}
+				};
+				
+			
+			}else{ /** ANDROID **/
+				sound_on.onclick = function(){
+					video.volume = 0;
+				};
+				sound_off.onclick = function(){
+					video.volume = 1;
+				};
+				
+				video.onvolumechange = function(){
+					if(video.volume == 0){
+						sound_on.style.display = "none";
+						sound_off.style.display = "block";
+					}else{
+						sound_on.style.display = "block";
+						sound_off.style.display = "none";
+					}
+				};
+				
+				/** init duration for quartiles and play video **/
+			
+				video.addEventListener('playing', function() {
+					video.removeAttribute('controls');
+					
+					if(!initQuartile){
+						initQuartiles();
+					}
+					
+					started = true;
+				});
+				
+				var intervalTestVideo = setInterval(function(){
+					videoDuration = video.duration;
+					if(videoDuration>0){
+						video.play();
+						clearInterval(intervalTestVideo);
+					}
+				},100);
+
+			}
+			videoContainer.appendChild(sound_on);
+			videoContainer.appendChild(sound_off);
+
+			function clickAndSoundOff(){
+				if (iOS) {
+					canvasVideo.audio.pause();
+					sound_off.style.display = "block";
+					sound_on.style.display = "none";
+				}else{
+					video.volume = 0;
+				}
+			}
+			
+			document.getElementsByClassName('logocontainer')[0].addEventListener('click',clickAndSoundOff);
+			document.getElementsByClassName('mapcontainer')[0].addEventListener('click',clickAndSoundOff);
+			if (iOS) {
+				divClickCanva.addEventListener('click',clickAndSoundOff);
+			}
+			else{
+				video.addEventListener('click',clickAndSoundOff);
+			}
+			
+			notLoad = false;
+		};
+		
+		var truncate = function (str, limit) {
+			var bits, i;
+			bits = str.split('');
+			if (bits.length > limit) {
+				for (i = bits.length - 1; i > -1; --i) {
+					if (i > limit) {
+						bits.length = i;
+					}
+					else if (' ' === bits[i]) {
+						bits.length = i;
+						break;
+					}
+				}
+				bits.push('...');
+			}
+			return bits.join('');
+		};
+		
+		function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+			var R = 6371; // Radius of the earth in km
+			var dLat = deg2rad(lat2-lat1);  // deg2rad below
+			var dLon = deg2rad(lon2-lon1); 
+			var a = 
+				Math.sin(dLat/2) * Math.sin(dLat/2) +
+				Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+				Math.sin(dLon/2) * Math.sin(dLon/2)
+				; 
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+			var d = R * c; // Distance in km
+			var retVal = null;
+			if(d >= 1){
+				retVal = Math.round(d) + ' km';
+			}else{
+				retVal = Math.round(d*1000) + ' m';
+			}
+			return retVal;
+		}
+		
+		function deg2rad(deg) {
+		  return deg * (Math.PI/180)
+		}
+
+		setTimeout(function(){ 
+			if(notLoad){
+				showAd();
+			}
+		}, 3000);
+	</script>
+</body>
+</html>

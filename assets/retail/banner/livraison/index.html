@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <title>Retail Classic - Banner</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+	.logocontainer {
+		background: white;
+	}
+	.logocontainer .logo1 {
+		height: 50%;
+	}
+	.logocontainer .logo2 {
+		height: 40%;
+		opacity: 0;
+	}
+	.brandinfos {
+		border-left: 3px solid #f06c53;
+	}
+	.brand {
+		animation: fadeout 6.8s 9s infinite;
+	}
+	.adress {
+		opacity: 0;
+		animation: fadein1 6.8s 9s infinite;
+	}	
+	.open {
+		opacity: 0;
+		animation: fadein2 6.8s 9s infinite;
+	}
+	.spinnerrotate {
+		background: linear-gradient(90deg, white 50%, transparent 50%),linear-gradient(to top, #f06c53 50%, white 90%, white 90%);
+	}
+	.spinnerforeground {
+		background: white;
+	}
+	.arrow {
+		border-left: 50vh solid #f06c53;
+	}
+	.arrowWhite {
+		border-left:10vh solid white;
+	}
+  </style>
+
+</head>
+<body>
+	<span id="te-clearads-js-tenthavenue01cont02"></span>
+	<div id="main" class="banner">
+		<div class="logocontainer slideRight">
+			<div class="logocenter">
+				<img class="logo logo1 logoslideOpacity" src="img/logo.gif" alt="logo">
+				<img class="logo logo2 logoslideOpacity2" src="img/logo2.png" alt="logo">
+			</div>
+		</div>
+		<div class="framecontainer slideOutLeft">
+			<div class="littleframe frame2">
+				<img src="img/message2.gif" alt="frame2">
+			</div>
+			<div class="littleframe frame1 frametransition">
+				<img src="img/message1.gif" alt="frame1">
+			</div>
+		</div>
+		<div class="mapcontainer slideLeft"></div>
+		<div class="pincontainer slideLeft">
+			<img class="pin pintransition" src="img/pin.png">
+		</div>
+		<div class="mapbox zoomin">
+			<div class="brandinfos">
+				<div class="infos">
+					<h1 id="brand" class="brand">à 200m<br>Renault Rousseaux</h1>
+					<p id="adress" class="adress">28 rue Jacques Ibert<br>75017 Paris</p>
+					<p id="open" class="open">Ouvert du Lun au Ven de 9h00 à 18h00</p>
+				</div>
+			</div>
+			<div class="spinnercontainer">
+				<div class="spinnerforeground">
+					<div class="arrowcontainer">
+						<div class="arrow"></div>
+						<div class="arrowWhite"></div>
+					</div>
+				</div>
+				<div class="spinnerrotate"></div>
+				<div class="spinnerbackground"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+
+	
+	var frameSize = 0;
+	var windowSize = 0;
+	var pinContainer = document.getElementsByClassName("pincontainer")[0];
+	
+	//Centrer pin horizontalement
+	function initPicto(){
+		frameSize = document.getElementsByClassName('frame1')[0].getElementsByTagName('img')[0].offsetWidth;
+		windowSize = document.getElementsByTagName('body')[0].offsetWidth;
+		if(frameSize == 0 || windowSize == 0){
+			setTimeout(initPicto,200);
+		}else{
+		
+			pinContainer.style.width = windowSize-frameSize+"px";
+			pinContainer.style.left = frameSize+"px";
+		}
+	}
+	
+	//Centrer .infos verticalement
+	function initTxtCenter(){
+		var infoContainer = document.getElementsByClassName('infos')[0];
+		var infoContainerSize = infoContainer.offsetHeight;
+		var infoSize = document.getElementById('brand').offsetHeight;
+		var finalSize = ((infoContainerSize-infoSize)/2);
+		if(infoSize == 0 || infoContainerSize == 0){
+			setTimeout(initTxtCenter,200);
+		}else{
+			infoContainer.style.marginTop = finalSize+"px";
+		}
+	}
+	
+	window.onload = function(){
+
+		//Boucler animation
+		var logoContainer = document.getElementsByClassName('logocontainer')[0];
+		var logo1 = document.getElementsByClassName('logo1')[0];
+		var logo2 = document.getElementsByClassName('logo2')[0];
+		var frameContainer = document.getElementsByClassName('framecontainer')[0];
+		var mapContainer = document.getElementsByClassName('mapcontainer')[0];
+		var mapBox = document.getElementsByClassName('mapbox')[0];
+		var frame1 = document.getElementsByClassName('frame1')[0];
+		var pin = document.getElementsByClassName('pin')[0];
+		
+		initPicto();
+		initTxtCenter();
+		window.addEventListener("resize",initPicto);
+		window.addEventListener("resize",initTxtCenter);
+		window.setInterval(function(){
+			
+			if (logo1.classList.contains('logoslideOpacity')) {
+				logo1.classList.remove('logoslideOpacity');
+				logo1.classList.add('logoslideOpacityReverse');
+			}
+			if (logo2.classList.contains('logoslideOpacity2')) {
+				logo2.classList.remove('logoslideOpacity2')
+				logo2.classList.add('logoslideOpacity2Reverse');
+			}
+			if (logoContainer.classList.contains('slideRight')) {
+				logoContainer.classList.remove('slideRight')
+				logoContainer.classList.add('slideRightReverse');
+			}
+			if (frameContainer.classList.contains('slideOutLeft')) {
+				frameContainer.classList.remove('slideOutLeft')
+				frameContainer.classList.add('slideOutLeftReverse');
+			}
+			if (mapContainer.classList.contains('slideLeft')) {
+				mapContainer.classList.remove('slideLeft')
+				mapContainer.classList.add('slideLeftReverse');
+			}
+			if (pinContainer.classList.contains('slideLeft')) {
+				pinContainer.classList.remove('slideLeft')
+				pinContainer.classList.add('slideLeftReverse');
+			}
+			if (pin.classList.contains('pintransition')) {
+				pin.classList.remove('pintransition')
+				pin.classList.add('frametransitionReverse');
+			}
+			if (mapBox.classList.contains('zoomin')) {
+				mapBox.classList.remove('zoomin')
+				mapBox.classList.add('zoominReverse');
+			}
+			if (frame1.classList.contains('frametransition')) {
+				frame1.classList.remove('frametransition')
+				frame1.classList.add('frametransitionReverse');
+			}
+			
+			window.setTimeout(function(){
+				if (logo1.classList.contains('logoslideOpacityReverse')) {
+				logo1.classList.remove('logoslideOpacityReverse')
+				logo1.classList.add('logoslideOpacity');
+				}
+				if (logo2.classList.contains('logoslideOpacity2Reverse')) {
+					logo2.classList.remove('logoslideOpacity2Reverse')
+					logo2.classList.add('logoslideOpacity2');
+				}
+				if (logoContainer.classList.contains('slideRightReverse')) {
+					logoContainer.classList.remove('slideRightReverse')
+					logoContainer.classList.add('slideRight');
+				}
+				if (frameContainer.classList.contains('slideOutLeftReverse')) {
+					frameContainer.classList.remove('slideOutLeftReverse')
+					frameContainer.classList.add('slideOutLeft');
+				}
+				if (mapContainer.classList.contains('slideLeftReverse')) {
+					mapContainer.classList.remove('slideLeftReverse')
+					mapContainer.classList.add('slideLeft');
+				}
+				if (pinContainer.classList.contains('slideLeftReverse')) {
+					pinContainer.classList.remove('slideLeftReverse')
+					pinContainer.classList.add('slideLeft');
+				}
+				if (pin.classList.contains('frametransitionReverse')) {
+					pin.classList.remove('frametransitionReverse')
+					pin.classList.add('pintransition');
+				}
+
+				if (mapBox.classList.contains('zoominReverse')) {
+					mapBox.classList.remove('zoominReverse')
+					mapBox.classList.add('zoomin');
+				}
+				if (frame1.classList.contains('frametransitionReverse')) {
+					frame1.classList.remove('frametransitionReverse')
+					frame1.classList.add('frametransition');
+				}
+			}, 1200);
+			
+		}, 20170);
+	};
+	
+</script>
+
+</html>
