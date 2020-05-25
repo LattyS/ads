@@ -95,7 +95,6 @@ html, body {
 	margin: auto;
 	left: 35vw;
 	bottom: 1vw;
-	display: table;
 	z-index: 100;
 }
 

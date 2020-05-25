@@ -136,7 +136,6 @@ html, body {
 	right: 8vh;
 	top: 0;
 	bottom: 0;
-	display: table;
 	z-index: 100;
 }
 

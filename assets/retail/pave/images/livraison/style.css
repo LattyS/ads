@@ -168,7 +168,6 @@ html, body {
 	right: 2vh;
 	top: 0;
 	bottom: 0;
-	display: table;
 	z-index: 100;
 }
 
